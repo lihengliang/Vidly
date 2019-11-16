@@ -10,21 +10,31 @@ namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        string header = "Customers";
+        List<Customer> customer = new List<Customer>
+        {
+            new Customer() {Id = 1, Name = "George Orwell"},
+            new Customer() {Id = 2, Name = "Michael Scott"},
+            new Customer() {Id = 3, Name = "Leonardo Dicaprio"},
+        };
         // GET: Customers
         [Route("customers/all")]
         public ActionResult Index()
         {
-            var header = "Customers";
-            var customer = new List<Customer>
-            {
-                new Customer() {Name = "George Orwell"},
-                new Customer() {Name = "Michael Scott"},
-                new Customer() {Name = "Leonardo Dicaprio"},
-            };
             var viewModel = new AllCustomersViewModel()
             {
                 Header = header,
                 Customers = customer
+            };
+            return View(viewModel);
+        }
+
+        [Route("customers/details/{id}")]
+        public ActionResult Customer(int id)
+        {
+            var viewModel = new Customer()
+            {
+                Name = customer.SingleOrDefault(item => item.Id == id).Name
             };
             return View(viewModel);
         }

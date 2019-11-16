@@ -12,7 +12,7 @@
     @foreach (var customer in Model.Customers)
     {
         <tr>
-            <td>@customer.Name</td>
+            <td>@Html.ActionLink(@customer.Name, "details/" + @customer.Id.ToString(), "Customers")</td>
         </tr>
     }
 </table>
